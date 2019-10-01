@@ -1,0 +1,20 @@
+language: python
+python:
+- '2.7'
+before_script:
+- yes | python setup.py install
+- git clone https://github.com/uc-cdis/dictionaryutils; cd dictionaryutils
+script:
+- "./run_tests.sh"
+deploy:
+  provider: s3
+  access_key_id: AKIAZRNPHKJIPRRTEJUI
+  secret_access_key:
+    secure: hdx7ZlqDr/6z24fU+NOXOJ6K8pSweCO9owqy2SoZnlGXw+97DQFQYZIsuNrLXVft8oi+o/r2dcBANG0yFry3Oy3BlTNm2HhZEXSxgDAiotMw59DoKHp3e8WZBZGyy7fuoIFLuzGSMcz7CWeCg/+9YmJvtlJS2zCH+aAM8IKbA73ZZ8BnOeEbl/UemJ76cyFwanz8LIQuP3nyrbTkLgzbzyZgdZ/T5M4qcI1utqZR+4c7yUt2sJGn6VHLJrtpB1oqA6oLMjiG2P/d/iw5TcqgXSfYB2hOGwH3Kcppt9OJ4zoHXRlg7IMu2BE/unGnZsdHGIvKqmf6s0cRXmMi9s7H3jc/mrvBj2Z3yieb0VkIODshil79wx91s5VDd5kjgx/iCyzVuXT/C/jAfcqSHsiUoYGLbjplkrKxzUq+hoAPAV6epcJdExkpLRjhWlADZPOJQJNs7rjnYIZ/Cp5ju2AwzmUgrc6wZj9hDXP9okTsPf10uPC3YLBnkzW1ZMnNgcqtDZxEAz1wNdD7xbxh28+MXdPcwp4HlqqBZaDZr0UXs+kyeVgyx06p/HSKigMuidDtuvaE31mRRCmVvGeDuq4UgxmwBjHUbu1iTX2EYhqBRV0sxJ21up8qVloAwbE4zxCR8N3CBFf2IJ+AGUE8zYaYCAfFCKYro3ctg6K685hdezc=
+  bucket: dictionary-artifacts
+  local-dir: artifacts
+  upload-dir: microbiome_datadictionary/$TRAVIS_BRANCH
+  skip_cleanup: true
+  on:
+    repo: uc-cdis/Microbiome_datadictionary
+    all_branches: true
